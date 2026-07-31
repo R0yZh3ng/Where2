@@ -1,6 +1,11 @@
 import { Text, View, StyleSheet, ScrollView, StatusBar, ImageBackground, Pressable } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 
+const coinImage = require('../../../../assets/images/coinFlip.png')
+const wheelImage = require('../../../../assets/images/wheel.png')
+const fingerImage = require('../../../../assets/images/fingerPicker.png')
+const numberImage = require('../../../../assets/images/numberPicker.png')
+
 export default function Casino({ title, onPress, backgroundImage }) {
   return (
     <SafeAreaProvider>
@@ -13,8 +18,8 @@ export default function Casino({ title, onPress, backgroundImage }) {
               pressed && styles.cardPressed,
             ]}
           >
-            <ImageBackground source = {backgroundImage} style= {styles.image} imageStyle = {{ borderRadius: 16 }}>
-              <Text style={styles.title}>title</Text>
+            <ImageBackground source = {coinImage} style= {styles.image} imageStyle = {{ borderRadius: 16 }}>
+              <Text style={styles.title}>Coin Flip</Text>
             </ImageBackground>
           </Pressable>
 
@@ -25,8 +30,8 @@ export default function Casino({ title, onPress, backgroundImage }) {
               pressed && styles.cardPressed,
             ]}
           >
-            <ImageBackground source = {backgroundImage} style= {styles.image} imageStyle = {{ borderRadius: 16 }}>
-              <Text style={styles.title}>title</Text>
+            <ImageBackground source = {wheelImage} style= {styles.image} imageStyle = {{ borderRadius: 16 }}>
+              <Text style={styles.title}>The Wheel</Text>
             </ImageBackground>
           </Pressable>
           
@@ -37,8 +42,8 @@ export default function Casino({ title, onPress, backgroundImage }) {
               pressed && styles.cardPressed,
             ]}
           >
-            <ImageBackground source = {backgroundImage} style= {styles.image} imageStyle = {{ borderRadius: 16 }}>
-              <Text style={styles.title}>title</Text>
+            <ImageBackground source = {fingerImage} style= {styles.image} imageStyle = {{ borderRadius: 16 }}>
+              <Text style={styles.title}>Finger Picker</Text>
             </ImageBackground>
           </Pressable>
           
@@ -49,8 +54,8 @@ export default function Casino({ title, onPress, backgroundImage }) {
               pressed && styles.cardPressed,
             ]}
           >
-            <ImageBackground source = {backgroundImage} style= {styles.image} imageStyle = {{ borderRadius: 16 }}>
-              <Text style={styles.title}>title</Text>
+            <ImageBackground source = {numberImage} style= {styles.image} imageStyle = {{ borderRadius: 16 }}>
+              <Text style={styles.title}>Number Picker</Text>
             </ImageBackground>
           </Pressable>
 
@@ -73,11 +78,11 @@ const styles = StyleSheet.create({
     fontSize: 800,
   },
   scrollView: {
-    backgroundColor: 'blue'
+    backgroundColor: '#25292e',
   },
   card: {
     height: 140,
-    width: 400,
+    width: 350,
     borderRadius: 16,
     overflow: 'hidden',
     marginBottom: 12,
