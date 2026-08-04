@@ -12,7 +12,7 @@ const GAMES = [
 
 ]
 
-export default function index({ title, onPress, backgroundImage }) {
+export default function Index({ title, onPress, backgroundImage }) {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container} edges={['top']}>

@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native';
 
 
-export default function finger() {
+export default function Finger() {
   return(
   <View>
     <Text>Finger Picker</Text>
