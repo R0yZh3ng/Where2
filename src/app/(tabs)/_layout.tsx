@@ -6,35 +6,46 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: '#ffd33d',
+        tabBarInactiveTintColor: '#9aa0a6',
         headerStyle: {
-          backgroundColor: '#25292e',
+          backgroundColor: '#1a1d21',
         },
         headerShadowVisible: false,
         headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: '700',
+        },
         tabBarStyle: {
-          backgroundColor: '#25292e',
+          backgroundColor: '#1a1d21',
+          borderTopWidth: 0,
+          height: 88,
+          paddingTop: 8,
+          paddingBottom: 24,
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: '600',
         },
       }}
     >
       <Tabs.Screen
         name="index"
-        options={{ 
+        options={{
           title: 'Home',
           tabBarIcon: ({ color, focused }) => (
             <Ionicons name={focused ? 'home-sharp' : 'home-outline'} color={color} size={24} />
           ),
         }}
       />
-     <Tabs.Screen
+      <Tabs.Screen
         name="casino"
-        options={{ 
+        options={{
           title: 'Casino',
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons name={focused ? 'home-sharp' : 'home-outline'} color={color} size={24} />
+            <Ionicons name={focused ? 'game-controller' : 'game-controller-outline'} color={color} size={24} />
           ),
         }}
       />
-
     </Tabs>
   );
 }

@@ -1,6 +1,7 @@
 import { Text, View, StyleSheet, ScrollView, StatusBar, ImageBackground, Pressable } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { router } from 'expo-router';
+import { sharedStyles, colors } from '../../constants/styles';
 
 const GAMES = [
   { title: 'coin', image: require('../../../../assets/images/coinFlip.png'), route: '/casino/coin'},
@@ -15,23 +16,25 @@ const GAMES = [
 export default function Index({ title, onPress, backgroundImage }) {
   return (
     <SafeAreaProvider>
-      <SafeAreaView style={styles.container} edges={['top']}>
-        <ScrollView style={styles.scrollView}>
+      <SafeAreaView style={sharedStyles.container} edges={['top']}>
+        <ScrollView style={sharedStyles.scrollView} contentContainerStyle={sharedStyles.scrollContent}>
           {GAMES.map((game) => (
             <Pressable 
               key={game.route}
               onPress = {() => router.push(game.route)}
               style={({ pressed }) => [
-                styles.card,
-                pressed && styles.cardPressed,
+                sharedStyles.card,
+                pressed && sharedStyles.cardPressed,
               ]}
             >
             <ImageBackground 
               source = {game.image}
-              style = {styles.image}
-              imagestyle = {{ borderRadius: 16 }}
+              style = {sharedStyles.image}
+              imagestyle = { sharedStyles.imageStyle }
             >
-              <Text style={styles.title}>Coin Flip</Text>
+              <View style={sharedStyles.overlay}>
+                <Text style={sharedStyles.title}>Coin Flip</Text>
+              </View>
             </ImageBackground>
             </Pressable>
           ))}
@@ -41,39 +44,4 @@ export default function Index({ title, onPress, backgroundImage }) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#25292e',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    color: "#fff",
-    fontSize: 800,
-  },
-  scrollView: {
-    backgroundColor: '#25292e',
-  },
-  card: {
-    height: 140,
-    width: 350,
-    borderRadius: 16,
-    overflow: 'hidden',
-    marginBottom: 12,
-  },
-  cardPressed: {
-    opacity: 0.7,
-    transform: [{ scale: 0.98 }],
-  },
-  image: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    padding: 12,
-  },
-  title: {
-    color: 'white',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-});
+
