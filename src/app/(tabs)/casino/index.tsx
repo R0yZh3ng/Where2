@@ -1,18 +1,19 @@
 import { Text, View, StyleSheet, ScrollView, StatusBar, ImageBackground, Pressable } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
+import { router } from 'expo-router';
 
 const coinImage = require('../../../../assets/images/coinFlip.png')
 const wheelImage = require('../../../../assets/images/wheel.png')
 const fingerImage = require('../../../../assets/images/fingerPicker.png')
 const numberImage = require('../../../../assets/images/numberPicker.png')
 
-export default function Casino({ title, onPress, backgroundImage }) {
+export default function index({ title, onPress, backgroundImage }) {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container} edges={['top']}>
         <ScrollView style={styles.scrollView}>
           <Pressable 
-            onPress = {onPress}
+            onPress = { () => router.push('/casino/coin')}
             style = {({ pressed }) => [
               styles.card,
               pressed && styles.cardPressed,
