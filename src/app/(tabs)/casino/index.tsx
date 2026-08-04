@@ -2,66 +2,40 @@ import { Text, View, StyleSheet, ScrollView, StatusBar, ImageBackground, Pressab
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { router } from 'expo-router';
 
-const coinImage = require('../../../../assets/images/coinFlip.png')
-const wheelImage = require('../../../../assets/images/wheel.png')
-const fingerImage = require('../../../../assets/images/fingerPicker.png')
-const numberImage = require('../../../../assets/images/numberPicker.png')
+const GAMES = [
+  { title: 'coin', image: require('../../../../assets/images/coinFlip.png'), route: '/casino/coin'},
+  { title: 'wheel', image: require('../../../../assets/images/wheel.png'), route: '/casino/wheel'},
+  { title: 'finger', image: require('../../../../assets/images/fingerPicker.png'), route: '/casino/finger'},
+  { title: 'number', image: require('../../../../assets/images/numberPicker.png'), route: '/casino/number'}
+
+
+
+]
 
 export default function index({ title, onPress, backgroundImage }) {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container} edges={['top']}>
         <ScrollView style={styles.scrollView}>
-          <Pressable 
-            onPress = { () => router.push('/casino/coin')}
-            style = {({ pressed }) => [
-              styles.card,
-              pressed && styles.cardPressed,
-            ]}
-          >
-            <ImageBackground source = {coinImage} style= {styles.image} imageStyle = {{ borderRadius: 16 }}>
+          {GAMES.map((game) => (
+            <Pressable 
+              key={game.route}
+              onPress = {() => router.push(game.route)}
+              style={({ pressed }) => [
+                styles.card,
+                pressed && styles.cardPressed,
+              ]}
+            >
+            <ImageBackground 
+              source = {game.image}
+              style = {styles.image}
+              imagestyle = {{ borderRadius: 16 }}
+            >
               <Text style={styles.title}>Coin Flip</Text>
             </ImageBackground>
-          </Pressable>
-
-          <Pressable 
-            onPress = {onPress}
-            style = {({ pressed }) => [
-              styles.card,
-              pressed && styles.cardPressed,
-            ]}
-          >
-            <ImageBackground source = {wheelImage} style= {styles.image} imageStyle = {{ borderRadius: 16 }}>
-              <Text style={styles.title}>The Wheel</Text>
-            </ImageBackground>
-          </Pressable>
-          
-          <Pressable 
-            onPress = {onPress}
-            style = {({ pressed }) => [
-              styles.card,
-              pressed && styles.cardPressed,
-            ]}
-          >
-            <ImageBackground source = {fingerImage} style= {styles.image} imageStyle = {{ borderRadius: 16 }}>
-              <Text style={styles.title}>Finger Picker</Text>
-            </ImageBackground>
-          </Pressable>
-          
-          <Pressable 
-            onPress = {onPress}
-            style = {({ pressed }) => [
-              styles.card,
-              pressed && styles.cardPressed,
-            ]}
-          >
-            <ImageBackground source = {numberImage} style= {styles.image} imageStyle = {{ borderRadius: 16 }}>
-              <Text style={styles.title}>Number Picker</Text>
-            </ImageBackground>
-          </Pressable>
-
-
-        </ScrollView>
+            </Pressable>
+          ))}
+                  </ScrollView>
       </SafeAreaView>
     </SafeAreaProvider>
   );
