@@ -8,9 +8,6 @@ const GAMES = [
   { title: 'wheel', image: require('../../../../assets/images/wheel.png'), route: '/casino/wheel'},
   { title: 'finger', image: require('../../../../assets/images/fingerPicker.png'), route: '/casino/finger'},
   { title: 'number', image: require('../../../../assets/images/numberPicker.png'), route: '/casino/number'}
-
-
-
 ]
 
 export default function Index({ title, onPress, backgroundImage }) {
