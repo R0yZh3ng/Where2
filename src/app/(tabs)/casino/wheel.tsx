@@ -38,7 +38,7 @@ export default function WheelSpin() {
 
   const containerStyle = useAnimatedStyle(() => ({
     transform: [
-      { scaleX: Math.abs(Math.cos((rotation.value * Math.PI) / 180)) },
+      { rotate:`${rotation.value}deg` },
     ]
   }));
 
@@ -56,8 +56,14 @@ export default function WheelSpin() {
 const styles = StyleSheet.create({
   container: { flex: 1, alignItems: 'center', justifyContent: 'center' },
   wheel: {
-    width: 100,
-    height: 100,
+    width: 250,
+    height: 250,
+    borderRadius: 125,
+    backgroundColor: '#F4C24A',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 4,
+    borderColor: '#B8860B',
   },
   coinImage: {
     position: 'absolute',
