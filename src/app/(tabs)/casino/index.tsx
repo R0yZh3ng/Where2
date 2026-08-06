@@ -30,7 +30,7 @@ export default function Index({ title, onPress, backgroundImage }) {
               imagestyle = { sharedStyles.imageStyle }
             >
               <View style={sharedStyles.overlay}>
-                <Text style={sharedStyles.title}>Coin Flip</Text>
+                <Text style={sharedStyles.title}>{game.title}</Text>
               </View>
             </ImageBackground>
             </Pressable>
