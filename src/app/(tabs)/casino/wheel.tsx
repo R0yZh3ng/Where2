@@ -1,5 +1,6 @@
+import React from 'react';
 import { useState } from 'react';
-import { View, Text, Pressable, StyleSheet, Image } from 'react-native';
+import { View, Text, Pressable, StyleSheet, Image, TextInput } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -9,6 +10,9 @@ import Animated, {
   Easing,
   runOnJS,
 } from 'react-native-reanimated';
+
+import WheelSvg from '../../../components/wheelSvg';
+
 
 export default function WheelSpin() {
   const [numSlices, setNumSlices] = useState(1);
@@ -20,16 +24,32 @@ export default function WheelSpin() {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   };
+
+  const [sliceInput, setSliceInput] = useState('2');
+
+  const handleSetSlices = () => {
+    const parsed = parseInt(sliceInput, 10);
+    if (!isNaN(parsed) && parsed >= 2 && parsed <= 12) {
+      setNumSlices(parsed);
+    }
+  };
   
   const spin = () => {
     console.log('spinned');
     const result = getRandomIntInclusive(1, numSlices);
+    const sliceAngle = 360/numSlices;
+    const sliceCenter = (result - 1) * sliceAngle + sliceAngle / 2;
+    const targetInCycle = (360 - sliceCenter) % 360;
+    const currentNormalized = rotation.value % 360;
+    let delta = targetInCycle - currentNormalized;
+    if (delta < 0) delta += 306;
+
     const extraSpins = 20;
-    const finalRotation = rotation.value + extraSpins * 360;
+    const finalRotation = rotation.value + extraSpins * 360 + delta;
     
     rotation.value = withTiming(
       finalRotation,
-      { duration: 1000, easing: Easing.out(Easing.cubic) },
+      { duration: 4000, easing: Easing.out(Easing.cubic) },
       () => {
         runOnJS(setSlice)(result);
       }
@@ -45,34 +65,57 @@ export default function WheelSpin() {
   return (
     <View style = {styles.container}>
       <Pressable onPress={spin} style={styles.button}>
-        <Animated.View style = { [styles.wheel, containerStyle] }>
-          <Text>Just testing if this works</Text>
-        </Animated.View>
+        <View style={styles.wheelContainer}>
+          <Animated.View style = { [styles.wheel, containerStyle] }>
+            <WheelSvg numSlices={numSlices} size={250}/>
+          </Animated.View>
+          <View style={styles.pointer} />
+        </View>
       </Pressable>
+      <TextInput
+        style={styles.input}
+        value={sliceInput}
+        onChangeText={setSliceInput}
+        onSubmitEditing={handleSetSlices}
+        onBlur={handleSetSlices}
+        keyboardType="num-pad"
+        maxLength={2}
+      />
+      <Text styles={styles.inputLabel}>Slices</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  wheel: {
-    width: 250,
-    height: 250,
-    borderRadius: 125,
-    backgroundColor: '#F4C24A',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 4,
-    borderColor: '#B8860B',
-  },
-  coinImage: {
-    position: 'absolute',
-    width: '100%',
-    height: '100%',
-    resizeMode: 'contain',
+ wheel: {
+  width: 250,
+  height: 250,
+  borderRadius: 125,
+  overflow: 'hidden',   // add this to clip anything that overflows the bounds
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderWidth: 4,
+  borderColor: '#B8860B',
   },
 
-  coinText: { fontSize: 32, fontWeight: '700' },
   button: { padding: 16 },
   buttonText: { color: '#fff', fontSize: 18 },
+  
+  inputRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 16, gap: 8 },
+  input: {
+    backgroundColor: '#2a2e35',
+    color: '#fff',
+    fontSize: 18,
+    width: 60,
+    textAlign: 'center',
+    borderRadius: 8,
+    paddingVertical: 8,
+  },
+  inputLabel: { color: '#9aa0a6', fontSize: 16 },
+
+  wheelContainer: {
+  alignItems: 'center',
+  justifyContent: 'center',
+  },
 });
